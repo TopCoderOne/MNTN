@@ -121,6 +121,10 @@ body {
     overflow: hidden;
 }
 
+.hide-element {
+    visibility: hidden;
+}
+
 .main-container {
     width: 100%;
     max-width: 1462px;
