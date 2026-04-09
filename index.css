@@ -1,6 +1,32 @@
-@import url(./src/fonts/Gilroy/stylesheet.css);
-@import url(./src/fonts/Chronicle-display/stylesheet.css);
+@font-face {
+    font-family: 'Chronicle Display';
+    src: url('./src/fonts/Chronicle-display/Chronicle-Display-Semibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: 'Gilroy';
+    src: url('./src/fonts/Gilroy/Gilroy-ExtraBold.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('./src/fonts/Gilroy/Gilroy-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('./src/fonts/Gilroy/Gilroy-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Variables _______________________ */
 :root {
     --body-bgcolor: #0B1D26;
     --primary-color: #ffffff;
@@ -9,6 +35,7 @@
     --gilroy-style-semibold: "SemiBold";
 }
 
+/* Default styles _______________________ */
 *,
 *::before,
 *::after {
@@ -53,11 +80,30 @@ a {
     text-decoration: none;
 }
 
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+a:active,
+button:active {
+    background-color: transparent;
+}
+
 body {
-    background: var(--body-bgcolor) url("./src/images/BG.jpg") no-repeat top;
+    background: var(--body-bgcolor) url("./src/images/main-bg-img.jpg") no-repeat top;
     background-size: 100% auto;
     color: var(--primary-color);
     font-family: var(--font-gilroy);
+}
+
+/* End of default styles _______________________ */
+.stop-scroll {
+    overflow: hidden;
 }
 
 .main-container {
@@ -67,9 +113,44 @@ body {
     padding: 0 16px;
 }
 
+main {
+    overflow: hidden;
+}
+
+[data-animation="zoom"] {
+    transform: scale(0.8);
+}
+
+[data-animation="fade-right"] {
+    transform: translateX(100px);
+}
+
+[data-animation="fade-left"] {
+    transform: translateX(-100px);
+}
+
+/* Header _______________________ */
 .header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10000;
+}
+
+.nav-wrapper {
     padding: 64px 80px 0;
-    position: relative;
+}
+
+.nav-wrapper.fixed {
+    background-color: #474343c1;
+    transition: background-color .3s linear;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000000;
 }
 
 .container-wide {
@@ -78,7 +159,13 @@ body {
     align-items: center;
 }
 
-.nav-menu ul {
+/* Nav-menu _______________________ */
+.nav-menu {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-menu>ul {
     display: flex;
     gap: 40px;
 }
@@ -89,17 +176,24 @@ body {
     line-height: 100%;
 }
 
-/* Account _______________________ */
-.account {
+.nav-menu>ul>li>.account-link {
+    display: none;
+}
+
+/* Account-link _______________________ */
+.account-link {
     font-weight: 700;
     font-size: 17px;
     line-height: 100%;
 }
 
-.account span,
-.account>img {
-    display: inline-block;
+.account-link>span,
+.account-link>img {
     vertical-align: middle;
+}
+
+.account-link>img {
+    margin-right: 8px;
 }
 
 /* Nav toggle _______________________ */
@@ -118,7 +212,7 @@ body {
     background-color: var(--primary-color);
     display: block;
     transform: rotate(0deg);
-    transition: .2s ease all;
+    transition: all .3s linear;
     border-radius: 8px;
     height: 2px;
     width: 35px;
@@ -136,6 +230,7 @@ body {
 
 .opened .bar-mid {
     opacity: 0;
+    transform: translateX(-20px);
 }
 
 .opened .bar-bot {
@@ -145,11 +240,11 @@ body {
 
 /* Hero _______________________ */
 .hero {
-    padding: 252px 0 480px 0;
+    padding: 300px 0 800px 0;
 }
 
 .hero-wrapper {
-    max-width: 950px;
+    max-width: 900px;
     margin: 0 auto;
     text-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
 }
@@ -190,10 +285,134 @@ body {
 
 .hero-scroll>img {
     vertical-align: middle;
+    margin-left: 16px;
+    animation: arrow-move-y .5s linear infinite alternate;
+    transform: translateY(0);
 }
 
-main {
-    margin-top: 300px;
+@keyframes arrow-move-y {
+    from {
+        transform: translateY(-10px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Social and Slider _______________________ */
+.social,
+.slider {
+    display: flex;
+    text-shadow: 0 0 25px #000000;
+    position: fixed;
+    z-index: 100;
+}
+
+.social {
+    gap: 24px;
+    transform: rotate(90deg) !important;
+    top: 39%;
+    left: -60px;
+}
+
+.social>span {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.slider {
+    align-items: center;
+    gap: 10px;
+    top: 30%;
+    right: 20px;
+}
+
+.slider-indicator {
+    position: relative;
+    width: 3px;
+    height: 240px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.slider-indicator::before {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 60px;
+    background: #FFFFFF;
+}
+
+.slider-text {
+    font-family: 'Gilroy';
+    font-size: 18px;
+    line-height: 22px;
+    text-align: right;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+}
+
+.slider-text:last-child {
+    margin-bottom: 0;
+}
+
+.slider-indicator {
+    position: relative;
+    width: 3px;
+    height: 240px;
+    /* Общая высота серой линии */
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.slider-indicator::before {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 60px;
+    /* Высота активного сегмента */
+    background-color: var(--primary-color);
+
+    /* Добавляем эти 3 строки для движения */
+    position: absolute;
+    /* transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(var(--y, 0px));  */
+
+    /* Убираем плавность или ставим очень маленькую (0.1s), 
+       чтобы движение было отзывчивым */
+    transition: transform 0.1s linear;
+    transform: translateY(var(--y, 0px));
+}
+
+.slider-text {
+    cursor: pointer;
+}
+
+/* Animation _______________________ */
+.animate {
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s linear;
+}
+
+.animate.show {
+    transform: none;
+    opacity: 1;
+}
+
+[data-animation="fade-left"] {
+    transform: translateX(-100px);
+}
+
+[data-animation="fade-right"] {
+    transform: translateX(100px);
+}
+
+[data-animation="zoom"] {
+    transform: scale(-10px);
 }
 
 /* Article _______________________ */
@@ -202,7 +421,6 @@ main {
     justify-content: space-between;
     align-items: center;
     gap: 100px 20px;
-    position: relative;
 }
 
 .article:not(:last-child) {
@@ -210,7 +428,7 @@ main {
 }
 
 .article-img {
-    height: 720px;
+    height: 720;
     overflow: hidden;
 }
 
@@ -219,6 +437,7 @@ main {
 }
 
 .article-block {
+    position: relative;
     width: 100%;
     max-width: 782px;
     padding-left: 150px;
@@ -235,13 +454,9 @@ main {
     color: rgba(255, 255, 255, 0.1);
     margin: 0 auto;
     position: absolute;
-    top: 5%;
+    top: -24%;
     left: 0;
     z-index: -100;
-}
-
-.article:nth-child(2)>.article-block::before {
-    left: 45%;
 }
 
 .article-subtitle {
@@ -286,10 +501,18 @@ main {
 
 .article-read-more>img {
     vertical-align: middle;
+    animation: arrow-move-x .5s linear infinite alternate;
+    transform: translateX(0);
 }
 
-.article-read-more>img {
-    vertical-align: middle;
+@keyframes arrow-move-x {
+    from {
+        transform: translateX(-5px);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 /* Footer _______________________ */
@@ -349,6 +572,18 @@ main {
     display: none;
 }
 
+@media screen and (max-width: 1600px) {
+    .main-container {
+        padding: 0 78px;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .hero {
+        padding-bottom: 300px;
+    }
+}
+
 @media screen and (max-width: 1060px) {
     main {
         margin-top: 0;
@@ -359,9 +594,10 @@ main {
     }
 }
 
-@media screen and (max-width: 1024px) {
-    .header {
-        padding: 40px;
+@media screen and (max-width: 1024px),
+(max-width: 1114px) and (max-height: 700px) {
+    .main-container {
+        padding: 0 16px;
     }
 
     /* Nav toggle _______________________ */
@@ -370,20 +606,33 @@ main {
     }
 
     .nav-wrapper {
-        /* padding: 20px 10px; */
-        transition: .3s linear;
-        /* position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1000000; */
+        padding: 20px;
+    }
+
+    .nav-wrapper.fixed {
+        padding: 15px;
+    }
+
+    .nav-wrapper.opened {
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.527);
     }
 
     .nav-menu {
-        transition: .3s linear;
+        opacity: 0;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
         position: absolute;
-        top: 50%;
-        left: -100%;
+        transition: opacity 0.3s linear;
+        top: -1000%;
+        left: 0;
+        right: 0;
+    }
+
+    .nav-menu.opened {
+        opacity: 1;
+        top: 30%;
     }
 
     .nav-menu>ul {
@@ -396,19 +645,13 @@ main {
         text-shadow: 2px 2px 10px rgb(166, 166, 166);
     }
 
-    .nav-wrapper.opened {
-        backdrop-filter: blur(10px) brightness(80%);
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1000000;
+    .account-link,
+    .account-link>img {
+        display: none;
     }
 
-    .nav-menu.opened {
-        right: 0;
-        left: 0;
+    .nav-menu>ul>li>.account-link {
+        display: block;
     }
 
     /* Hero _______________________ */
@@ -425,6 +668,11 @@ main {
     .hero-title {
         font-size: 50px;
         line-height: normal;
+    }
+
+    .social,
+    .slider {
+        display: none;
     }
 
     /* Article _______________________ */
@@ -473,11 +721,14 @@ main {
     }
 
     .article-img {
-        height: auto;
+        overflow: visible;
     }
 
     .article-img>img {
+        width: 100%;
+        max-width: 100%;
         height: 500px;
+        object-fit: contain;
     }
 
     /* Footer _______________________ */
@@ -514,13 +765,8 @@ main {
 }
 
 @media screen and (max-width: 650px) {
-    body {
-        background-size: 600px auto;
-    }
-
-    /* Header _______________________ */
-    .header {
-        padding: 20px 16px 0;
+    .nav-wrapper {
+        padding: 20px 10px;
     }
 
     .header-logo,
@@ -612,6 +858,8 @@ main {
 }
 
 @media screen and (max-width: 375px) {
+
+    /* Article _______________________ */
     .article-title {
         font-size: 20px;
     }
@@ -619,40 +867,12 @@ main {
 
 @media screen and (max-width: 320px) {
 
-    /* Header _______________________ */
-    .header {
-        padding-right: 10px;
-        padding-left: 10px;
-    }
-
+    /* Hero _______________________ */
     .hero {
-        padding-bottom: 252px;
+        padding-bottom: 100px;
     }
 
-    /* .header-logo {
-        width: 60px;
-    }
-
-    .nav-wrapper {
-        height: 100vh;
-        backdrop-filter: blur(10px) brightness(120%);
-        padding: 20px;
-    }
-
-    .container-wide {}
-
-    .nav-menu {
-        position: absolute;
-        top: 30%;
-        right: 0;
-        left: 0;
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-        text-align: center;
-    } */
-
+    /* Article _______________________ */
     .article-subtitle {
         letter-spacing: 2px;
         margin-bottom: 10px;
