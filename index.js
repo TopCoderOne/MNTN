@@ -34,7 +34,12 @@ document.addEventListener("click", (e) => {
     const slide = e.target.closest(".slider-text");
     if (slide) {
         const index = [...slides].indexOf(slide);
-        sections[index]?.scrollIntoView({ behavior: "smooth" });
+        const top = sections[index].getBoundingClientRect().top + window.scrollY - 100;
+
+        window.scrollTo({
+            top,
+            behavior: "smooth"
+        });
     }
 });
 
