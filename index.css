@@ -594,7 +594,7 @@ main {
     }
 }
 
-@media screen and (max-width: 1024px),
+@media screen and (max-width: 1025px),
 (max-width: 1114px) and (max-height: 700px) {
     .main-container {
         padding: 0 16px;

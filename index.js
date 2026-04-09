@@ -64,16 +64,32 @@ const updateSlider = (index) => {
 
 // -------------------- SLIDER OBSERVER --------------------
 
-const sliderObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const index = [...sections].indexOf(entry.target);
-            updateSlider(index);
-        }
-    });
-}, { threshold: 0.5 });
+const mediaQuery = window.matchMedia("(min-width: 1025px)");
+let sliderObserver;
 
-sections.forEach(section => sliderObserver.observe(section));
+function initSliderObserver() {
+    if (mediaQuery.matches && !sliderObserver && indicator) {
+        sliderObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = [...sections].indexOf(entry.target);
+                    updateSlider(index);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => sliderObserver.observe(section));
+        updateSlider(0);
+    }
+
+    if (!mediaQuery.matches && sliderObserver) {
+        sliderObserver.disconnect();
+        sliderObserver = null;
+    }
+}
+
+initSliderObserver();
+mediaQuery.addEventListener("change", initSliderObserver);
 
 // -------------------- ANIMATION OBSERVER --------------------
 
@@ -87,7 +103,3 @@ const animationObserver = new IntersectionObserver((entries, obs) => {
 }, { threshold: 0.3 });
 
 elements.forEach(el => animationObserver.observe(el));
-
-// -------------------- INIT --------------------
-
-updateSlider(0);
