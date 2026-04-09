@@ -64,7 +64,7 @@ const updateSlider = (index) => {
 
 // -------------------- SLIDER OBSERVER --------------------
 
-const mediaQuery = window.matchMedia("(min-width: 1025px)");
+const mediaQuery = window.matchMedia("(min-width: 1200px)");
 let sliderObserver;
 
 function initSliderObserver() {
