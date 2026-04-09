@@ -624,7 +624,7 @@ main {
 }
 
 @media screen and (max-width: 1024px),
-(max-width: 1114px) and (max-height: 700px) {
+screen and (max-width: 1114px) and (max-height: 700px) {
     /* Nav toggle _______________________ */
     .nav-toggle {
         display: inline-block;
@@ -701,7 +701,7 @@ main {
         text-align: center;
     }
 
-    .article:nth-child(2) {
+    .article:nth-child(3) {
         flex-direction: column;
     }
 
