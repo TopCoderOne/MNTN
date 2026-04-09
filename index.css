@@ -80,18 +80,33 @@ a {
     text-decoration: none;
 }
 
+a,
+button,
+div[class],
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
 a:focus,
 button:focus,
 input:focus,
 textarea:focus,
 select:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 a:active,
 button:active {
-    background-color: transparent;
+  background-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #005fcc;
+  outline-offset: 2px;
 }
 
 body {
